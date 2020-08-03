@@ -6,7 +6,9 @@ import 'package:osca_dart/osca_dart.dart';
 part 'course_detail_bloc.freezed.dart';
 
 class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
-  CourseDetailBloc(this.course) : super(const CourseDetailState.loading());
+  CourseDetailBloc(this.course) : super(const CourseDetailState.loading()) {
+    add(const CourseDetailEvent.reload());
+  }
 
   final Course course;
 
@@ -14,9 +16,10 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
   Stream<CourseDetailState> mapEventToState(CourseDetailEvent event) async* {
     final cookie = await WebUtils.getFedAuthCookie();
     final api = OscaWebApi(cookie);
-    final files = await api.getListOfAllFilesForCourse(course.courseDataID);
+    final files =
+        await api.getListOfAllFilesForCourse(course.courseID.toString());
     final announcements =
-        await api.getAllAnnouncementsForCourse(course.courseDataID);
+        await api.getAllAnnouncementsForCourse(course.courseID.toString());
     yield CourseDetailState.loaded(files ?? [], announcements ?? []);
   }
 }

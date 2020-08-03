@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hsos/courses/courses_bloc.dart';
+import 'package:hsos/courses/detail/course_detail_page.dart';
 import 'package:hsos/db/database.dart';
 import 'package:osca_dart/app/models/course.dart';
 import 'package:osca_dart/app/osca_app_api.dart';
@@ -49,6 +50,14 @@ class _CoursesListScaffold extends StatelessWidget {
         children: courses.map((e) {
           return ListTile(
             title: Text(e.courseName),
+            onTap: () {
+              Navigator.push<void>(context,
+                  MaterialPageRoute(builder: (context) {
+                return CourseDetailPage(
+                  course: e,
+                );
+              }));
+            },
           );
         }).toList(growable: false),
       ),

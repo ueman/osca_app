@@ -419,8 +419,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "5bff855"
-      resolved-ref: "5bff855971b8c7249a37500473e42dad498f395b"
+      ref: "0fb8992"
+      resolved-ref: "0fb899291f4f472f6439af4ec45afbbeb2a3d6c6"
       url: "git@github.com:ueman/dart_hsos_client.git"
     source: git
     version: "0.0.1"
