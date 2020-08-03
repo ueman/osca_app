@@ -7,9 +7,17 @@ class Semester {
 
 /*
 CREATE VIEW IF NOT EXISTS Semester AS
-SELECT SemesterName as Name, SemesterID AS Id, SUM(Master) as Master, SUM(Bachelor) as Bachelor
+SELECT
+  SemesterName as Name,
+  SemesterID AS Id,
+  SUM(Master) as Master,
+  SUM(Bachelor) as Bachelor
 FROM (
-	SELECT DISTINCT SemesterName, SemesterID, CourseNumber LIKE '%M%' AS Master, CourseNumber LIKE '%B%' AS Bachelor
+	SELECT 
+	  DISTINCT SemesterName,
+	  SemesterID,
+	  CourseNumber LIKE '%M%' AS Master,
+	  CourseNumber LIKE '%B%' AS Bachelor
 	FROM StudentEvent
 	WHERE CourseNumber LIKE '%M%'
 	OR CourseNumber LIKE '%B%'

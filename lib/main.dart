@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
           title: 'Osca',
           theme: lightTheme,
           darkTheme: darkTheme,
-          home: LoginPage(),
+          home: const LoginPage(),
         ),
       ),
     );

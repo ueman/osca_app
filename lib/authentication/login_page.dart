@@ -5,6 +5,8 @@ import 'package:hsos/overview/overview_scaffold.dart';
 import 'package:lottie/lottie.dart';
 
 class LoginPage extends StatelessWidget {
+  const LoginPage({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
@@ -25,8 +27,8 @@ class _LoginScaffold extends StatefulWidget {
 }
 
 class __LoginScaffoldState extends State<_LoginScaffold> {
-  TextEditingController _userNameController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final _userNameController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
