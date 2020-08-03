@@ -21,9 +21,10 @@ dependencies:
   lottie: 0.5.1
   provider: ^4.3.1
   floor: ^0.14.0
+  native_pdf_view: ^3.7.0
   osca_dart:
     git:
-      url: git@github.com:ueman/dart_hsos_client.git
+      url: https://github.com/ueman/dart_hsos_client.git
       ref: '0fb8992'
 
 dev_dependencies:
