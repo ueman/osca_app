@@ -13,7 +13,7 @@ SELECT
   SUM(Master) as Master,
   SUM(Bachelor) as Bachelor
 FROM (
-	SELECT 
+	SELECT
 	  DISTINCT SemesterName,
 	  SemesterID,
 	  CourseNumber LIKE '%M%' AS Master,
