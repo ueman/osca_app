@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hsos/db/database.dart';
 import 'package:hsos/exams/exams_bloc.dart';
+import 'package:hsos/widgets/error_scaffold.dart';
+import 'package:hsos/widgets/loading_scaffold.dart';
 import 'package:osca_dart/app/models/exam.dart';
 import 'package:osca_dart/app/osca_app_api.dart';
 import 'package:provider/provider.dart';
@@ -18,15 +20,12 @@ class ExamsPage extends StatelessWidget {
       ),
       child: BlocBuilder<ExamsBloc, ExamsState>(
         builder: (context, state) => state.when(
-          error: (message) => Scaffold(
-            body: Center(
-              child: Text(message),
-            ),
+          error: (message) => ErrorScaffold(
+            title: 'Noten',
+            errorMessage: message,
           ),
-          loading: () => const Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
+          loading: () => const LoadingScaffold(
+            title: 'Noten',
           ),
           loaded: (exams) => _ExamsListScaffold(
             exams: exams,

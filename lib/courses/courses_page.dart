@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hsos/courses/courses_bloc.dart';
 import 'package:hsos/courses/detail/course_detail_page.dart';
 import 'package:hsos/db/database.dart';
+import 'package:hsos/widgets/error_scaffold.dart';
+import 'package:hsos/widgets/loading_scaffold.dart';
 import 'package:osca_dart/app/models/course.dart';
 import 'package:osca_dart/app/osca_app_api.dart';
 import 'package:provider/provider.dart';
@@ -19,15 +21,12 @@ class CoursesPage extends StatelessWidget {
       ),
       child: BlocBuilder<CoursesBloc, CoursesState>(
         builder: (context, state) => state.when(
-          error: (message) => Scaffold(
-            body: Center(
-              child: Text(message),
-            ),
+          error: (message) => ErrorScaffold(
+            title: 'Kurse',
+            errorMessage: message,
           ),
-          loading: () => const Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
+          loading: () => const LoadingScaffold(
+            title: 'Kurse',
           ),
           loaded: (courses) => _CoursesListScaffold(
             courses: courses,

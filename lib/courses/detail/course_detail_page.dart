@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hsos/courses/detail/course_detail_bloc.dart';
+import 'package:hsos/widgets/error_scaffold.dart';
+import 'package:hsos/widgets/loading_scaffold.dart';
 import 'package:osca_dart/osca_dart.dart';
 
 class CourseDetailPage extends StatelessWidget {
@@ -14,17 +16,15 @@ class CourseDetailPage extends StatelessWidget {
       create: (BuildContext context) => CourseDetailBloc(course),
       child: BlocBuilder<CourseDetailBloc, CourseDetailState>(
         builder: (context, state) => state.when(
-          error: (message) => Scaffold(
-            body: Center(
-              child: Text(message),
-            ),
+          error: (message) => ErrorScaffold(
+            title: course.courseName,
+            errorMessage: message,
           ),
-          loading: () => const Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
+          loading: () => LoadingScaffold(
+            title: course.courseName,
           ),
           loaded: (files, announcements) => _CourseDetailScaffold(
+            course: course,
             files: files,
             announcements: announcements,
           ),
@@ -39,8 +39,10 @@ class _CourseDetailScaffold extends StatelessWidget {
     Key key,
     @required this.files,
     @required this.announcements,
+    @required this.course,
   }) : super(key: key);
 
+  final Course course;
   final List<CourseFile> files;
   final List<Announcement> announcements;
 
@@ -48,7 +50,7 @@ class _CourseDetailScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Kursdetails'),
+        title: Text(course.courseName),
       ),
       body: ListView(
         children: <Widget>[

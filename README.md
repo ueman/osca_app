@@ -1,20 +1,17 @@
-# hsos
+# HS Osnabrück App
 
-A sample application for HS OS
+Eine App für die Hochschule Osnabrück.
+Hier gibts quasi das komplette Osca Portal als App.
+Mit Ankündigungen, Datei-Portal, Noten und Statistiken.
+Das ganze ist noch sehr prototypisch funktioniert dafür aber 
+schon recht gut.
 
-## Getting Started
+## Installation
+Alle iOS Nutzer müssen sich die App leider selbst kompilieren um sie benutzen zu können.
+(Dies ist aufgrund der Restriktionen von Apple so. Tut mir leid, da kann ich leider nix machen 🤷‍♂️)
+Alle Android Nutzer können sich die App hier herunterladen.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
+# Infos zur Entwicklung
 
 ## Wie wird Code generiert?
 Hier ist es ratsam sich erst einmal die [offizielle Doku](https://flutter.dev/docs/development/data-and-backend/json) duchzulesen.

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hsos/appointments/appointments_bloc.dart';
+import 'package:hsos/widgets/error_scaffold.dart';
+import 'package:hsos/widgets/loading_scaffold.dart';
 import 'package:osca_dart/app/models/appointment.dart';
 import 'package:osca_dart/app/osca_app_api.dart';
 import 'package:provider/provider.dart';
@@ -15,15 +17,12 @@ class AppointmentsPage extends StatelessWidget {
           AppointmentsBloc(context.read<OscaAppApi>()),
       child: BlocBuilder<AppointmentsBloc, AppointmentsState>(
         builder: (context, state) => state.when(
-          error: (message) => Scaffold(
-            body: Center(
-              child: Text(message),
-            ),
+          error: (message) => ErrorScaffold(
+            title: 'Stundenplan',
+            errorMessage: message,
           ),
-          loading: () => const Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
+          loading: () => const LoadingScaffold(
+            title: 'Stundenplan',
           ),
           loaded: (appointments) => _AppointmentsListScaffold(
             appointments: appointments,
