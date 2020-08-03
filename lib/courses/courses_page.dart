@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hsos/courses/courses_bloc.dart';
+import 'package:hsos/db/database.dart';
 import 'package:osca_dart/app/models/course.dart';
 import 'package:osca_dart/app/osca_app_api.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +12,10 @@ class CoursesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => CoursesBloc(context.read<OscaAppApi>()),
+      create: (BuildContext context) => CoursesBloc(
+        context.read<OscaAppApi>(),
+        context.read<AppDatabase>(),
+      ),
       child: BlocBuilder<CoursesBloc, CoursesState>(
         builder: (context, state) => state.when(
           error: (message) => Scaffold(

@@ -1,28 +1,33 @@
-class Semester {
-  String name;
-  String id;
-  bool master;
-  bool bachelor;
-}
+import 'package:floor/floor.dart';
 
-/*
-CREATE VIEW IF NOT EXISTS Semester AS
+@DatabaseView('''
 SELECT
-  SemesterName as Name,
-  SemesterID AS Id,
-  SUM(Master) as Master,
-  SUM(Bachelor) as Bachelor
+  semesterName as name,
+  semesterID AS id,
+  SUM(master) as master,
+  SUM(bachelor) as bachelor
 FROM (
-	SELECT
-	  DISTINCT SemesterName,
-	  SemesterID,
-	  CourseNumber LIKE '%M%' AS Master,
-	  CourseNumber LIKE '%B%' AS Bachelor
-	FROM StudentEvent
-	WHERE CourseNumber LIKE '%M%'
-	OR CourseNumber LIKE '%B%'
-) as temp
-GROUP BY SemesterName
-ORDER BY SemesterID ASC
-";
- */
+  SELECT
+    DISTINCT semesterName,
+    semesterID,
+    courseNumber LIKE '%M%' AS master,
+    courseNumber LIKE '%B%' AS bachelor
+  FROM Course
+  WHERE courseNumber LIKE '%M%'
+  OR courseNumber LIKE '%B%'
+)
+GROUP BY semesterName
+ORDER BY semesterID ASC''', viewName: 'Semester')
+class Semester {
+  Semester(
+    this.name,
+    this.id,
+    this.master,
+    this.bachelor,
+  );
+
+  final String name;
+  final String id;
+  final bool master;
+  final bool bachelor;
+}

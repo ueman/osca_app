@@ -20,6 +20,7 @@ dependencies:
   toast: 0.1.5
   lottie: 0.5.1
   provider: ^4.3.1
+  floor: ^0.14.0
   osca_dart:
     git:
       url: git@github.com:ueman/dart_hsos_client.git
@@ -30,6 +31,7 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^1.10.1
   freezed: ^0.11.4
+  floor_generator: ^0.14.0
 
 flutter:
   uses-material-design: true

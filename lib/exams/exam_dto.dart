@@ -1,5 +1,7 @@
+import 'package:floor/floor.dart';
 import 'package:osca_dart/app/models/exam.dart';
 
+@Entity(tableName: 'Exam')
 class ExamDto {
   ExamDto();
 
@@ -23,6 +25,7 @@ class ExamDto {
       ..semesterName = exam.semesterName;
   }
 
+  @primaryKey
   int examID;
 
   /// Name der Prüfung, also Abschlussarbeit/Kolloquium/Prüfungsleistung
