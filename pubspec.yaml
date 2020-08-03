@@ -1,0 +1,38 @@
+name: hsos
+description: A sample application for HS OS
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.8.0 <3.0.0"
+  flutter: ">=1.17.0 <2.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^0.1.3
+  flutter_bloc: ^6.0.1
+  freezed_annotation: ^0.11.0
+  flutter_markdown: 0.4.2
+  shared_preferences: 0.5.8
+  toast: 0.1.5
+  lottie: 0.5.1
+  provider: ^4.3.1
+  osca_dart:
+    git:
+      url: git@github.com:ueman/dart_hsos_client.git
+      ref: '5bff855'
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner: ^1.10.1
+  freezed: ^0.11.4
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/hsos_logo.svg
+    - assets/lottie/school.json
