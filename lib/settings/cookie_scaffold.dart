@@ -17,7 +17,7 @@ class _CookieScaffoldState extends State<CookieScaffold> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('FedAuth-Cookie'),
+        title: const Text('Dateibereich freischalten'),
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),
@@ -62,7 +62,15 @@ class _CookieScaffoldState extends State<CookieScaffold> {
 
 //language=md
 const _description = '''
-## Was ist der `FedAuth`-Cookie und wie bekomme ich den?
+Der Dateibereich wird über eine experimentelle Schnittstelle abgerufen.
+Der Nutzer (du) kann aktuell aufgrund technischer Limitationen nicht komplett 
+automatisch authentifiziert werden. Daher muss die untenstehende Anleitung 
+befolgt werden, um sie anzusprechen.
+
+Dazu muss ein sogenannter `FedAuth`-Cookie verwendet werden. 
+
+
+## Was ist der "FedAuth"-Cookie und wie bekomme ich den?
 
 1. Beispielsweise in Chrome im [Osca-Portal](https://osca.hs-osnabrueck.de) anmelden.
 2. Auf das Schloss in der Adressleiste klicken.
@@ -70,7 +78,7 @@ const _description = '''
 4. Auf osca.hs-osnabrueck.de -> Cookies -> FedAuth klicken
 5. In das Textfeld alles was nach `FedAuth=` kommt angeben
 
-*ACHTUNG*
+*ACHTUNG:*
 
 Die Gültigkeit des Cookies ist etwa 12 Stunden.
 Danach musst du die Schritte wiederholen.

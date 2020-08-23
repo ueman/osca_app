@@ -33,6 +33,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Stream<AuthState> _logout() async* {
     yield const AuthState.loggedOut();
   }
+
+  void logout() => add(const AuthEvent.logout());
 }
 
 @freezed

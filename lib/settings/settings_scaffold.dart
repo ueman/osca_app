@@ -16,7 +16,7 @@ class SettingsScaffold extends StatelessWidget {
       body: ListView(
         children: <Widget>[
           ListTile(
-            title: const Text('Cookie für Extra'),
+            title: const Text('Dateibereich freischalten'),
             onTap: () {
               Navigator.push<void>(
                 context,
@@ -29,10 +29,10 @@ class SettingsScaffold extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: Icon(Icons.directions_run),
+            leading: const Icon(Icons.directions_run),
             title: const Text('Logout'),
             onTap: () {
-              BlocProvider.of<AuthBloc>(context).add(const AuthEvent.logout());
+              BlocProvider.of<AuthBloc>(context).logout();
               Navigator.pop(context);
             },
           ),

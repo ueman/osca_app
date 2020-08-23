@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hsos/courses/course_dto.dart';
 import 'package:hsos/db/database.dart';
+import 'package:hsos/x/x.dart';
+import 'package:hsos/models/semester_group.dart';
 import 'package:osca_dart/app/osca_app_api.dart';
 import 'package:osca_dart/osca_dart.dart';
 
@@ -18,7 +20,7 @@ class CoursesBloc extends Bloc<CoursesEvent, CoursesState> {
   @override
   Stream<CoursesState> mapEventToState(CoursesEvent event) async* {
     final courses = await api.getCoursesSortedByCourseDesc();
-    yield CoursesState.loaded(courses);
+    yield CoursesState.loaded(courses.mapToSemester());
 
     await db.oscaDao
         .insertCourses(courses.map((e) => CourseDto.from(e)).toList());
@@ -34,5 +36,6 @@ abstract class CoursesEvent with _$CoursesEvent {
 abstract class CoursesState with _$CoursesState {
   const factory CoursesState.error(String message) = Error;
   const factory CoursesState.loading() = Loading;
-  const factory CoursesState.loaded(List<Course> courses) = Loaded;
+  const factory CoursesState.loaded(List<SemesterGroup<Course>> courses) =
+      Loaded;
 }

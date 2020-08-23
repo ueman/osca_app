@@ -22,10 +22,13 @@ dependencies:
   provider: ^4.3.1
   floor: ^0.14.0
   native_pdf_view: ^3.7.0
+  flutter_simple_treeview: 2.0.1
+  flutter_sticky_header: 0.4.5
+  url_launcher: 5.5.0
   osca_dart:
     git:
       url: https://github.com/ueman/dart_hsos_client.git
-      ref: '0fb8992'
+      ref: '39ae29e'
 
 dev_dependencies:
   flutter_test:

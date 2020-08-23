@@ -15,6 +15,7 @@ class AppointmentsBloc extends Bloc<AppointmentsEvent, AppointmentsState> {
   @override
   Stream<AppointmentsState> mapEventToState(AppointmentsEvent event) async* {
     final appointments = await api.getAppointments();
+    appointments.sort((a, b) => b.timetableDate.compareTo(a.timetableDate));
     yield AppointmentsState.loaded(appointments);
   }
 }

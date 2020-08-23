@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hsos/authentication/auth_bloc.dart';
 import 'package:hsos/overview/overview_scaffold.dart';
 import 'package:lottie/lottie.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key key}) : super(key: key);
@@ -99,18 +100,35 @@ class __LoginScaffoldState extends State<_LoginScaffold> {
   }
 
   Future<void> _showInformation(BuildContext context) {
+    const repoUrl = 'https://github.com/ueman/osca_app';
+    const title = 'Hinweise';
+    const content = '''
+Dies ist eine App von Studenten für Studenten.
+Dies ist keine offizielle App von der Hochschule Osnabrück.
+Die Benutzung dieser App erfolgt daher auf eigene Gefahr.
+''';
+    const accept = 'Verstanden';
     return showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Hinweise'),
-          content: const Text('Die ist kein offizielle Produkt blabla'),
+          title: const Text(title),
+          content: const Text(content),
           actions: <Widget>[
+            FlatButton(
+              onPressed: () async {
+                if (await canLaunch(repoUrl)) {
+                  await launch(repoUrl);
+                }
+                Navigator.pop(context);
+              },
+              child: const Text('Source Code anschauen'),
+            ),
             FlatButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: const Text('Verstanden'),
+              child: const Text(accept),
             ),
           ],
         );

@@ -15,7 +15,7 @@ class OverviewScaffold extends StatelessWidget {
         title: const Text('MyOsca'),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.settings),
+            icon: const Icon(Icons.settings),
             onPressed: () {
               Navigator.push<void>(
                 context,
@@ -32,9 +32,9 @@ class OverviewScaffold extends StatelessWidget {
       body: ListView(
         children: <Widget>[
           ListTile(
-            leading: CircleAvatar(
+            leading: const CircleAvatar(
               backgroundColor: Colors.red,
-              child: const Text(
+              child: Text(
                 '🎓',
                 style: TextStyle(fontSize: 25),
               ),
@@ -52,10 +52,10 @@ class OverviewScaffold extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: CircleAvatar(
+            leading: const CircleAvatar(
               backgroundColor: Colors.red,
-              child: const Text(
-                '💹',
+              child: Text(
+                '📊', // or maybe 📈
                 style: TextStyle(fontSize: 25),
               ),
             ),
@@ -72,9 +72,9 @@ class OverviewScaffold extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: CircleAvatar(
+            leading: const CircleAvatar(
               backgroundColor: Colors.black26,
-              child: const Text(
+              child: Text(
                 '🗓',
                 style: TextStyle(fontSize: 25),
               ),
@@ -92,6 +92,13 @@ class OverviewScaffold extends StatelessWidget {
             },
           ),
           ListTile(
+            leading: const CircleAvatar(
+              backgroundColor: Colors.black26,
+              child: Text(
+                '📚',
+                style: TextStyle(fontSize: 25),
+              ),
+            ),
             title: const Text('Kurse'),
             onTap: () {
               Navigator.push<void>(

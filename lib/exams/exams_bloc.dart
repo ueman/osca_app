@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hsos/db/database.dart';
 import 'package:hsos/exams/exam_dto.dart';
+import 'package:hsos/models/semester_group.dart';
 import 'package:osca_dart/app/osca_app_api.dart';
 import 'package:osca_dart/osca_dart.dart';
+import 'package:hsos/x/x.dart';
 
 part 'exams_bloc.freezed.dart';
 
@@ -19,7 +21,7 @@ class ExamsBloc extends Bloc<ExamsEvent, ExamsState> {
   Stream<ExamsState> mapEventToState(ExamsEvent event) async* {
     final exams = await api.getExams();
     exams.sort((a, b) => a.beginDate.compareTo(b.beginDate));
-    yield ExamsState.loaded(exams);
+    yield ExamsState.loaded(exams.mapToSemester());
 
     await db.oscaDao.insertExams(exams.map((e) => ExamDto.from(e)).toList());
   }
@@ -34,5 +36,5 @@ abstract class ExamsEvent with _$ExamsEvent {
 abstract class ExamsState with _$ExamsState {
   const factory ExamsState.error(String message) = Error;
   const factory ExamsState.loading() = Loading;
-  const factory ExamsState.loaded(List<Exam> exams) = Loaded;
+  const factory ExamsState.loaded(List<SemesterGroup<Exam>> exams) = Loaded;
 }

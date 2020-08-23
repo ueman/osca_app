@@ -46,6 +46,7 @@ class _AppointmentsListScaffold extends StatelessWidget {
         children: appointments.map((e) {
           return ListTile(
             title: Text(e.appointmentName),
+            subtitle: Text('${e.timetableDate}\n${e.roomString}'),
           );
         }).toList(growable: false),
       ),

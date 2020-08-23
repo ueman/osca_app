@@ -23,8 +23,9 @@ class StatsPage extends StatelessWidget {
               child: Text(message),
             ),
           ),
-          loading: () => const Scaffold(
-            body: Center(
+          loading: () => Scaffold(
+            appBar: AppBar(title: const Text('Statistiken')),
+            body: const Center(
               child: CircularProgressIndicator(),
             ),
           ),
