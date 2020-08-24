@@ -10,7 +10,7 @@ class FileScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dateibereich'),
+        title: const Text('Dateibereich'),
       ),
       body: rootNode.toWidgetTree(),
     );

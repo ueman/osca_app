@@ -3,7 +3,6 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:hsos/authentication/web_utils.dart';
 import 'package:hsos/settings/cookie_manager.dart';
 import 'package:toast/toast.dart';
-import 'package:webview_cookie_manager/webview_cookie_manager.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class CookieScaffold extends StatefulWidget {
@@ -101,11 +100,11 @@ class _CookieFlowScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cookie'),
+        title: const Text('Cookie'),
       ),
       body: Column(
         children: [
-          Expanded(
+          const Expanded(
             flex: 9,
             child: WebView(
               debuggingEnabled: true,
@@ -115,7 +114,6 @@ class _CookieFlowScaffold extends StatelessWidget {
           ),
           Expanded(
             child: MaterialButton(
-              child: Text('Cookie checken'),
               onPressed: () async {
                 final cookieManager = CustomCookieManager();
 
@@ -128,6 +126,7 @@ class _CookieFlowScaffold extends StatelessWidget {
                 );
                 await _checkAndValidateCookie(context, fedauth.value);
               },
+              child: const Text('Cookie checken'),
             ),
           ),
         ],
