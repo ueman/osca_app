@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_simple_treeview/flutter_simple_treeview.dart';
+import 'package:hsos/courses/detail/course_detail_bloc.dart';
+import 'package:native_pdf_view/native_pdf_view.dart';
 import 'package:osca_dart/web/models/course_file.dart';
 
 class FileNode {
@@ -79,22 +82,50 @@ extension FileListX on List<CourseFile> {
 
 extension FileNodeX on FileNode {
   Widget toWidgetTree() {
-    return TreeView(
-      nodes: widgetChildren(),
-      indent: 20,
-      treeController: TreeController(
-        allNodesExpanded: false,
-      ),
+    return Builder(
+      builder: (context) {
+        return TreeView(
+          nodes: widgetChildren(context),
+          indent: 20,
+          treeController: TreeController(
+            allNodesExpanded: false,
+          ),
+        );
+      },
     );
   }
 
-  List<TreeNode> widgetChildren() {
+  List<TreeNode> widgetChildren(BuildContext context) {
     return children.map((e) {
       if (e.isFile) {
+        final isPdf = e.file.name.endsWith('.pdf');
         return TreeNode(
           content: Expanded(
             child: ListTile(
-              onTap: () {},
+              onTap: isPdf
+                  ? () async {
+                      final bytes =
+                          await BlocProvider.of<CourseDetailBloc>(context)
+                              .downloadFile(e.file);
+                      await Navigator.push<void>(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (context) {
+                            return Scaffold(
+                              appBar: AppBar(
+                                title: Text(e.name),
+                              ),
+                              body: PdfView(
+                                controller: PdfController(
+                                  document: PdfDocument.openData(bytes),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    }
+                  : null,
               title: Text(e.name),
             ),
           ),
@@ -104,7 +135,7 @@ extension FileNodeX on FileNode {
         content: Expanded(
           child: ListTile(title: Text('📂 ${e.name}')),
         ),
-        children: e.widgetChildren(),
+        children: e.widgetChildren(context),
       );
     }).toList();
   }

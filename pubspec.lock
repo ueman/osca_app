@@ -346,12 +346,19 @@ packages:
     source: hosted
     version: "0.2.0"
   html:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: html
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.14.0+3"
+  html_unescape:
+    dependency: "direct main"
+    description:
+      name: html_unescape
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1+3"
   http:
     dependency: transitive
     description:
@@ -496,8 +503,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "39ae29e"
-      resolved-ref: "39ae29e3aebfc594a2f1ead2798c89367d5cfb62"
+      ref: d18736a
+      resolved-ref: d18736a943c6c170fa1c7394d950acb139c0f1ba
       url: "https://github.com/ueman/dart_hsos_client.git"
     source: git
     version: "0.0.1"

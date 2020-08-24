@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hsos/authentication/web_utils.dart';
@@ -11,16 +13,21 @@ class CourseDetailBloc extends Bloc<CourseDetailEvent, CourseDetailState> {
   }
 
   final Course course;
+  OscaWebApi api;
 
   @override
   Stream<CourseDetailState> mapEventToState(CourseDetailEvent event) async* {
     final cookie = await WebUtils.getFedAuthCookie();
-    final api = OscaWebApi(cookie);
+    api = OscaWebApi(cookie);
     final files =
         await api.getListOfAllFilesForCourse(course.courseID.toString());
     final announcements =
         await api.getAllAnnouncementsForCourse(course.courseID.toString());
     yield CourseDetailState.loaded(files ?? [], announcements ?? []);
+  }
+
+  Future<Uint8List> downloadFile(CourseFile file) async {
+    return api.loadFile(file);
   }
 }
 
