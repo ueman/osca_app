@@ -4,6 +4,7 @@ import 'package:hsos/courses/detail/course_detail_bloc.dart';
 import 'package:hsos/widgets/error_scaffold.dart';
 import 'package:hsos/widgets/loading_scaffold.dart';
 import 'package:osca_dart/osca_dart.dart';
+import 'package:hsos/courses/detail/files/file_node.dart';
 
 class CourseDetailPage extends StatelessWidget {
   const CourseDetailPage({Key key, @required this.course}) : super(key: key);
@@ -62,11 +63,7 @@ class _CourseDetailScaffold extends StatelessWidget {
             );
           }).toList(growable: false),
           const Text('Dateien'),
-          ...files.map((e) {
-            return ListTile(
-              title: Text(e.name),
-            );
-          }).toList(growable: false),
+          files.toTree().toWidgetTree()
         ],
       ),
     );

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:hsos/authentication/web_utils.dart';
+import 'package:hsos/settings/cookie_manager.dart';
 import 'package:toast/toast.dart';
+import 'package:webview_cookie_manager/webview_cookie_manager.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class CookieScaffold extends StatefulWidget {
   const CookieScaffold({Key key}) : super(key: key);
@@ -38,6 +41,15 @@ class _CookieScaffoldState extends State<CookieScaffold> {
               _checkAndValidateCookie(_cookieController.text);
             },
             child: const Text('Validieren und übernehmen'),
+          ),
+          RaisedButton(
+            onPressed: () {
+              Navigator.of(context)
+                  .push<void>(MaterialPageRoute(builder: (context) {
+                return _CookieFlowScaffold();
+              }));
+            },
+            child: const Text('Variante 2'),
           ),
         ],
       ),
@@ -83,3 +95,61 @@ Dazu muss ein sogenannter `FedAuth`-Cookie verwendet werden.
 Die Gültigkeit des Cookies ist etwa 12 Stunden.
 Danach musst du die Schritte wiederholen.
 ''';
+
+class _CookieFlowScaffold extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Cookie'),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            flex: 9,
+            child: WebView(
+              debuggingEnabled: true,
+              initialUrl: 'https://osca.hs-osnabrueck.de/',
+              javascriptMode: JavascriptMode.unrestricted,
+            ),
+          ),
+          Expanded(
+            child: MaterialButton(
+              child: Text('Cookie checken'),
+              onPressed: () async {
+                final cookieManager = CustomCookieManager();
+
+                final cookies = await cookieManager
+                    .getCookies('https://osca.hs-osnabrueck.de');
+
+                final fedauth = cookies.firstWhere(
+                  (element) => element.name == 'FedAuth',
+                  orElse: () => null,
+                );
+                await _checkAndValidateCookie(context, fedauth.value);
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _checkAndValidateCookie(
+    BuildContext context,
+    String cookie,
+  ) async {
+    try {
+      final couldConnect = await WebUtils.checkAndsaveFedAuthCookie(cookie);
+      if (couldConnect) {
+        Toast.show('Supi, funktioniert', context, duration: Toast.LENGTH_LONG);
+      } else {
+        Toast.show('Scheinbar ist etwas schief gelaufen', context,
+            duration: Toast.LENGTH_LONG);
+      }
+    } catch (e) {
+      Toast.show('Scheinbar ist etwas schief gelaufen', context,
+          duration: Toast.LENGTH_LONG);
+    }
+  }
+}
