@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
           return AuthBloc(context.read<OscaAppApi>());
         },
         child: MaterialApp(
-          title: 'Osca',
+          title: 'MyHSOS',
           theme: lightTheme,
           darkTheme: darkTheme,
           home: const LoginPage(),

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hsos/db/database.dart';
 import 'package:hsos/exams/stats/statistics.dart';
 import 'package:hsos/exams/stats/stats_bloc.dart';
+import 'package:hsos/exams/stats/widgets/stats.dart';
 import 'package:osca_dart/app/osca_app_api.dart';
 import 'package:provider/provider.dart';
 
@@ -48,12 +49,9 @@ class _StatsListScaffold extends StatelessWidget {
       appBar: AppBar(title: const Text('Statistiken')),
       body: ListView(
         children: [
-          if (stats.averageBachelorGrade != null)
-            Text('Bachelor Durchschnittsnote: ${stats.averageBachelorGrade}'),
-          if (stats.averageMasterGrade != null)
-            Text('Master Durchschnittsnote: ${stats.averageMasterGrade}'),
-          if (stats.averageBachelorGrade != null)
-            Text('Durchschnittsnote: ${stats.averageGrade}'),
+          if (stats.master != null) Stats(stats: stats.master),
+          if (stats.bachelor != null) Stats(stats: stats.bachelor),
+          if (stats.any != null) Stats(stats: stats.any),
         ],
       ),
     );

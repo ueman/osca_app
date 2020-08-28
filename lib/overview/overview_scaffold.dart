@@ -12,7 +12,7 @@ class OverviewScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('MyOsca'),
+        title: const Text('MyHSOS'),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.settings),

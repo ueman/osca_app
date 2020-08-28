@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hsos/courses/course_dto.dart';
 import 'package:hsos/db/database.dart';
+import 'package:hsos/db/statistic_db.dart';
 import 'package:hsos/exams/exam_dto.dart';
 import 'package:hsos/exams/stats/statistics.dart';
+import 'package:hsos/models/semester.dart';
 import 'package:osca_dart/app/osca_app_api.dart';
 import 'package:osca_dart/osca_dart.dart';
 
@@ -25,17 +27,25 @@ class StatsBloc extends Bloc<StatsEvent, StatsState> {
     await db.oscaDao
         .insertCourses(courses.map((e) => CourseDto.from(e)).toList());
 
-    final bachelorAvg = await db.statisticDb.getAverageBachelorGrade();
-    final masterAvg = await db.statisticDb.getAverageMasterGrade();
-    final avg = await db.statisticDb.getAverageGrade();
-    final hoursPerWeek = await db.statisticDb.getHoursPerWeek();
+    yield StatsState.loaded(
+      Statistics(
+        any: await _loadFor(db.statisticDb, null),
+        bachelor: await _loadFor(db.statisticDb, GraduationType.bachelor),
+        master: await _loadFor(db.statisticDb, GraduationType.master),
+      ),
+    );
+  }
 
-    yield StatsState.loaded(Statistics(
-      averageBachelorGrade: bachelorAvg,
-      averageMasterGrade: masterAvg,
-      averageGrade: avg,
+  Future<PerGraduation> _loadFor(StatisticsDb db, GraduationType type) async {
+    final averageGrade = await db.getAverageGrade(type: type);
+
+    final hoursPerWeek = await db.getHoursPerWeek(type: type);
+
+    return PerGraduation(
+      type: type,
+      averageGrade: averageGrade,
       hoursPerWeekPerSemester: hoursPerWeek,
-    ));
+    );
   }
 }
 
