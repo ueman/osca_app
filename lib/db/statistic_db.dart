@@ -1,3 +1,4 @@
+import 'package:hsos/exams/stats/service/grade_prediction.dart';
 import 'package:hsos/models/key_value.dart';
 import 'package:hsos/models/semester.dart';
 import 'package:sqflite/sqflite.dart' as sqflite;
@@ -23,7 +24,6 @@ WHERE Grade IS NOT NULL
 AND Grade IS NOT 'be'
 AND Semester.type = 'bachelor'
 ORDER BY Exam.dueDate ASC
-
 */
 class StatisticsDb {
   StatisticsDb(this.database);
@@ -71,6 +71,7 @@ AND Grade IS NOT 'be'
 AND GradeDescription IS NOT ''
 ${_restriction(type, 'AND')}
 GROUP BY Grade
+ORDER BY Grade ASC
 ''';
 
     final result = await database.rawQuery(query);
@@ -94,15 +95,51 @@ GROUP BY Semester.id
     return result.map((e) => KeyValue.fromMap(e)).toList(growable: false);
   }
 
-  String _restriction(GraduationType type, String prefix) {
+  /// Noten und Wochenstunden per Semester.
+  /// Kann benutzt werden, um mit einer Linearen Regression
+  /// vorhersagen bzgl. der Noten zu machen.
+  Future<List<GradePrediction>> listOfGradeAndWeekHoursPerSemester(
+      {GraduationType type}) async {
+    final query = '''
+-- Das WITH Keyword ist auch als Common Table Expression (CTE) bekannt 
+WITH weekhoursCT AS (
+	SELECT SemesterName as semesterName, SUM(HoursPerWeek) as weekhours
+	FROM Course
+	LEFT JOIN Semester ON Course.SemesterID = Semester.Id
+	GROUP BY SemesterID
+), gradesCT AS (
+	SELECT Semester.name as semesterName, AVG(Grade) as grade, Semester.type
+	FROM Exam
+	LEFT JOIN Semester ON Exam.semesterID = Semester.id
+	WHERE Grade IS NOT NULL
+	AND Grade IS NOT 'be'
+	AND Exam.StatusSystem IS '1'
+	GROUP BY Semester.id
+)
+
+SELECT gradesCT.semesterName as semester, grade, weekhours, type
+FROM gradesCT
+LEFT JOIN weekhoursCT ON gradesCT.semesterName = weekhoursCT.semesterName
+${_restriction(type, 'WHERE', table: '')}
+ORDER BY weekhours
+''';
+
+    final result = await database.rawQuery(query);
+    return result
+        .map((e) => GradePrediction.fromMap(e))
+        .toList(growable: false);
+  }
+
+  String _restriction(GraduationType type, String prefix, {String table}) {
     if (type == null) {
       return '';
     }
+    final tableIdentifier = table ?? 'Semester.';
     switch (type) {
       case GraduationType.bachelor:
-        return "$prefix Semester.type IS 'bachelor'";
+        return "$prefix ${tableIdentifier}type IS 'bachelor'";
       case GraduationType.master:
-        return "$prefix Semester.type IS 'master'";
+        return "$prefix ${tableIdentifier}type IS 'master'";
     }
     return '';
   }

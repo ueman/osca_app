@@ -5,6 +5,7 @@ import 'package:hsos/courses/course_dto.dart';
 import 'package:hsos/db/database.dart';
 import 'package:hsos/db/statistic_db.dart';
 import 'package:hsos/exams/exam_dto.dart';
+import 'package:hsos/exams/stats/service/linear_regression.dart';
 import 'package:hsos/exams/stats/statistics.dart';
 import 'package:hsos/models/semester.dart';
 import 'package:osca_dart/app/osca_app_api.dart';
@@ -38,13 +39,19 @@ class StatsBloc extends Bloc<StatsEvent, StatsState> {
 
   Future<PerGraduation> _loadFor(StatisticsDb db, GraduationType type) async {
     final averageGrade = await db.getAverageGrade(type: type);
-
     final hoursPerWeek = await db.getHoursPerWeek(type: type);
+    final hoursAndGrades =
+        await db.listOfGradeAndWeekHoursPerSemester(type: type);
+    final gradeCount = await db.gradeCount(type: type);
 
     return PerGraduation(
       type: type,
       averageGrade: averageGrade,
       hoursPerWeekPerSemester: hoursPerWeek,
+      weekHoursGradesPerSemester: hoursAndGrades,
+      predictedAverageGradeForNextSemester:
+          LinearRegression.predictNextSemester(hoursAndGrades),
+      gradeCount: gradeCount,
     );
   }
 }
