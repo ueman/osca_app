@@ -27,6 +27,7 @@ class LinearRegression {
     // first pass
     var sumx = 0.0;
     var sumy = 0.0;
+    // ignore: unused_local_variable
     var sumx2 = 0.0;
     for (int i = 0; i < n; i++) {
       sumx += x[i];

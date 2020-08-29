@@ -1,8 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:hsos/exams/stats/service/grade_prediction.dart';
-import 'package:hsos/models/grade.dart';
-import 'package:hsos/models/key_value.dart';
 import 'package:hsos/models/semester.dart';
 
 /// Plottet die Wochenstunden gegen die Durchschnittsnoten eines Semesters
