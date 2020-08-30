@@ -40,3 +40,18 @@ enum GraduationType {
   bachelor,
   master,
 }
+
+extension GraduationTypeX on GraduationType {
+  String get name {
+    if (this == null) {
+      return 'Gesamt-Studium';
+    }
+    switch (this) {
+      case GraduationType.bachelor:
+        return 'Bachelor';
+      case GraduationType.master:
+        return 'Master';
+    }
+    return 'Gesamt-Studium';
+  }
+}

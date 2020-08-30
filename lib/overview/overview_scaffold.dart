@@ -59,7 +59,7 @@ class OverviewScaffold extends StatelessWidget {
                 style: TextStyle(fontSize: 25),
               ),
             ),
-            title: const Text('Statistiken'),
+            title: const Text('Noten-Statistiken'),
             onTap: () {
               Navigator.push<void>(
                 context,

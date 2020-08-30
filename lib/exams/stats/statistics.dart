@@ -15,13 +15,15 @@ class Statistics {
 }
 
 class PerGraduation {
-  PerGraduation(
-      {this.type,
-      this.averageGrade,
-      this.hoursPerWeekPerSemester,
-      this.weekHoursGradesPerSemester,
-      this.predictedAverageGradeForNextSemester,
-      this.gradeCount});
+  PerGraduation({
+    this.type,
+    this.averageGrade,
+    this.hoursPerWeekPerSemester,
+    this.weekHoursGradesPerSemester,
+    this.predictedAverageGradeForNextSemester,
+    this.gradeCount,
+    this.averageGradePerSemester,
+  });
 
   final GraduationType type;
   final double averageGrade;
@@ -32,6 +34,9 @@ class PerGraduation {
 
   /// Welche Note wie oft geschrieben wurde
   final List<KeyValue> gradeCount;
+
+  /// Durchschnittsnote pro Semester
+  final List<KeyValue> averageGradePerSemester;
 
   final List<GradePrediction> weekHoursGradesPerSemester;
 

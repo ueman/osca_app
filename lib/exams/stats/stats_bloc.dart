@@ -39,6 +39,8 @@ class StatsBloc extends Bloc<StatsEvent, StatsState> {
 
   Future<PerGraduation> _loadFor(StatisticsDb db, GraduationType type) async {
     final averageGrade = await db.getAverageGrade(type: type);
+    final averageGradePerSemester =
+        await db.averageGradePerSemester(type: type);
     final hoursPerWeek = await db.getHoursPerWeek(type: type);
     final hoursAndGrades =
         await db.listOfGradeAndWeekHoursPerSemester(type: type);
@@ -47,6 +49,7 @@ class StatsBloc extends Bloc<StatsEvent, StatsState> {
     return PerGraduation(
       type: type,
       averageGrade: averageGrade,
+      averageGradePerSemester: averageGradePerSemester,
       hoursPerWeekPerSemester: hoursPerWeek,
       weekHoursGradesPerSemester: hoursAndGrades,
       predictedAverageGradeForNextSemester:

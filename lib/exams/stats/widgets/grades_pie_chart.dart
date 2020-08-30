@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:hsos/models/key_value.dart';
+import 'package:hsos/strings/texts.dart';
 
 class GradesPieChart extends StatelessWidget {
   const GradesPieChart({Key key, this.grades}) : super(key: key);
@@ -11,26 +12,31 @@ class GradesPieChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PieChart(
-      PieChartData(
-        startDegreeOffset: -90,
-        sectionsSpace: 0,
-        centerSpaceRadius: 20,
-        borderData: FlBorderData(
-          show: false,
+    return Column(
+      children: [
+        PieChart(
+          PieChartData(
+            startDegreeOffset: -90,
+            sectionsSpace: 0,
+            centerSpaceRadius: 20,
+            borderData: FlBorderData(
+              show: false,
+            ),
+            sections: grades
+                .map(
+                  (e) => PieChartSectionData(
+                    showTitle: true,
+                    title: e.key,
+                    value: double.parse(e.value),
+                    color: _getColor(),
+                    radius: 120,
+                  ),
+                )
+                .toList(),
+          ),
         ),
-        sections: grades
-            .map(
-              (e) => PieChartSectionData(
-                showTitle: true,
-                title: e.key,
-                value: double.parse(e.value),
-                color: _getColor(),
-                radius: 120,
-              ),
-            )
-            .toList(),
-      ),
+        Text(Texts.of(context).gradePieChartTitle),
+      ],
     );
   }
 }
@@ -46,7 +52,6 @@ Color _getColor() {
 const _colors = [
   Colors.green,
   Colors.red,
-  Colors.yellow,
   Colors.blue,
   Colors.orange,
   Colors.deepPurple,

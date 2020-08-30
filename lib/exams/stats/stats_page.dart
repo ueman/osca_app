@@ -45,13 +45,22 @@ class _StatsListScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const divider = Divider(
+      height: 40,
+      thickness: 4,
+    );
     return Scaffold(
       appBar: AppBar(title: const Text('Statistiken')),
       body: ListView(
         children: [
           if (stats.master != null) Stats(stats: stats.master),
+          divider,
           if (stats.bachelor != null) Stats(stats: stats.bachelor),
-          if (stats.any != null) Stats(stats: stats.any),
+          divider,
+          // Wenn jemand nur im BA studiert hat, ist any einfach
+          // das gleiche wie bachelor
+          if (stats.any != null && stats.master != null)
+            Stats(stats: stats.any),
         ],
       ),
     );

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hsos/authentication/auth_bloc.dart';
 import 'package:hsos/authentication/login_page.dart';
 import 'package:hsos/db/database.dart';
+import 'package:hsos/strings/texts.dart';
 import 'package:hsos/theme/theme.dart';
 import 'package:osca_dart/app/osca_app_api.dart';
 import 'package:provider/provider.dart';
@@ -34,9 +36,16 @@ class MyApp extends StatelessWidget {
           return AuthBloc(context.read<OscaAppApi>());
         },
         child: MaterialApp(
-          title: 'MyHSOS',
+          title: Texts.appName,
           theme: lightTheme,
           darkTheme: darkTheme,
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+            TextsDelegate(),
+          ],
+          supportedLocales: const [Locale('de')],
           home: const LoginPage(),
         ),
       ),

@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:hsos/models/key_value.dart';
 import 'package:hsos/strings/texts.dart';
 
-class WeekHourGraph extends StatelessWidget {
-  const WeekHourGraph({
+class GradesGraph extends StatelessWidget {
+  const GradesGraph({
     Key key,
     @required this.items,
   }) : super(key: key);
@@ -25,7 +25,7 @@ class WeekHourGraph extends StatelessWidget {
           ),
         ),
         Text(
-          Texts.of(context).weekhourGraphTitle,
+          Texts.of(context).gradeGraphTitle,
           textAlign: TextAlign.center,
         ),
       ],
@@ -75,7 +75,7 @@ LineChartData _createLineChartData(List<KeyValue> items) {
         },
         margin: 8,
         reservedSize: 20,
-        interval: 5,
+        interval: 1,
       ),
     ),
     borderData: FlBorderData(
@@ -96,10 +96,8 @@ LineChartData _createLineChartData(List<KeyValue> items) {
         ),
       ),
     ),
-    //minX: 0,
-    //maxX: items.length.toDouble(),
-    maxY: items.map((e) => e.value).map(double.parse).reduce(max) + 2,
-    minY: items.map((e) => e.value).map(double.parse).reduce(min) - 2,
+    //maxY: 6,
+    //minY: 1,
     lineBarsData: _createBarData(items),
   );
 }
