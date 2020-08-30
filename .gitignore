@@ -45,3 +45,6 @@ app.*.map.json
 # auto generated files
 lib/**/*.g.dart
 lib/**/*.freezed.dart
+android/key.properties
+android/key/private_key.pepk
+android/key/key.keystore
