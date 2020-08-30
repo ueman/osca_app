@@ -15,6 +15,9 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: 'stable'
+      # fix for 'No version of NDK matched the requested version 20.0.5594570. Versions available locally: 21.3.6528147'
+      # see https://github.com/gradle/gradle/issues/12440#issuecomment-646677351
+      - run : echo "ndk.dir=${ANDROID_HOME}/ndk-bundle" > android/local.properties
       # write key.properties
       - run: echo "$KEY_PROPERTIES" > android/key.properties
         env:
