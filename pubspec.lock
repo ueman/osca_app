@@ -426,7 +426,7 @@ packages:
       name: image
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.13"
+    version: "2.1.18"
   intl:
     dependency: transitive
     description:
@@ -536,8 +536,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: d18736a
-      resolved-ref: d18736a943c6c170fa1c7394d950acb139c0f1ba
+      ref: "4cfa157"
+      resolved-ref: "4cfa1578af56e3bc87a83ca4e3a4a110cdad100a"
       url: "https://github.com/ueman/dart_hsos_client.git"
     source: git
     version: "0.0.1"
@@ -638,7 +638,7 @@ packages:
       name: pointycastle
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.2"
+    version: "2.0.0"
   pool:
     dependency: transitive
     description:
@@ -972,7 +972,7 @@ packages:
       name: xml
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.7.0"
+    version: "4.5.1"
   yaml:
     dependency: transitive
     description:

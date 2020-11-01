@@ -35,7 +35,7 @@ dependencies:
   osca_dart:
     git:
       url: https://github.com/ueman/dart_hsos_client.git
-      ref: 'd18736a'
+      ref: '4cfa157'
 
 dev_dependencies:
   flutter_test:
