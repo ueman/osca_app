@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:hsos/authentication/web_utils.dart';
@@ -95,7 +97,12 @@ Die Gültigkeit des Cookies ist etwa 12 Stunden.
 Danach musst du die Schritte wiederholen.
 ''';
 
-class _CookieFlowScaffold extends StatelessWidget {
+class _CookieFlowScaffold extends StatefulWidget {
+  @override
+  __CookieFlowScaffoldState createState() => __CookieFlowScaffoldState();
+}
+
+class __CookieFlowScaffoldState extends State<_CookieFlowScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -149,6 +156,14 @@ class _CookieFlowScaffold extends StatelessWidget {
     } catch (e) {
       Toast.show('Scheinbar ist etwas schief gelaufen', context,
           duration: Toast.LENGTH_LONG);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (Platform.isAndroid) {
+      WebView.platform = SurfaceAndroidWebView();
     }
   }
 }

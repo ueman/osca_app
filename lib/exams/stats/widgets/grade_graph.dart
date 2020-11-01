@@ -49,7 +49,7 @@ LineChartData _createLineChartData(List<KeyValue> items) {
         reservedSize: 25,
         margin: 80,
         rotateAngle: -90,
-        textStyle: const TextStyle(
+        getTextStyles: (val) => const TextStyle(
           color: Color(0xff72719b),
           fontWeight: FontWeight.bold,
           fontSize: 14,
@@ -63,7 +63,7 @@ LineChartData _createLineChartData(List<KeyValue> items) {
       ),
       leftTitles: SideTitles(
         showTitles: true,
-        textStyle: const TextStyle(
+        getTextStyles: (val) => const TextStyle(
           color: Color(0xff75729e),
           fontWeight: FontWeight.bold,
           fontSize: 14,
